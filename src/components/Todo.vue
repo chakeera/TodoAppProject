@@ -1,0 +1,13 @@
+<template>
+ <div id="todo">
+    <h1>Todo page</h1>
+ </div>
+</template>
+<script>
+export default {
+  name: 'Todo',
+};
+</script>
+<style scoped>
+
+</style>
