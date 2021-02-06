@@ -1,5 +1,5 @@
 <template>
-  <div id="Login">
+  <div id="Register">
     <br>
     <br>
     <v-container align-center justify-center>
@@ -8,15 +8,14 @@
           <v-card class="login-card">
             <!-- Login/Signin -->
             <v-layout row align-center justify-center>
-              <!-- <v-form @submit.prevent="onSignin"> -->
-                <v-form>
+              <v-form @submit.prevent="submitRegister">
                 <v-flex xs12 class="py-3">
                   <h1 class="text-center">Register</h1>
                   <v-text-field
-                    name="name"
+                    name="fullname"
                     label="Full Name"
-                    id="name"
-                    v-model="name"
+                    id="fullname"
+                    v-model="fullname"
                     type="text"
                     required
                   >
@@ -43,8 +42,6 @@
                     <v-btn
                       outlined
                       type="submit"
-                      :disabled="loading"
-                      :loading="loading"
                     >
                       Register
                       <!-- <span slot="loader" class="custom-loader"> </span> -->
@@ -54,10 +51,8 @@
                     <v-flex xs12 class="py-3">
                   <div class="text-center">
                     <v-btn
+                    to="/login"
                       outlined
-                      type="submit"
-                      :disabled="loading"
-                      :loading="loading"
                     >
                       Already have an account? Login here
                       <!-- <span slot="loader" class="custom-loader"> </span> -->
@@ -72,12 +67,39 @@
     </v-container>
   </div>
 </template>
+
 <script>
+import firebase from 'firebase';
+
 export default {
   name: 'Register',
+  data() {
+    return {
+      fullname: '',
+      email: '',
+      password: '',
+      error: null,
+    };
+  },
+  methods: {
+    submitRegister() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then((data) => {
+          data.user
+            .updateProfile({
+              displayName: this.fullname,
+            })
+            .then(() => {});
+        })
+        .catch((err) => {
+          this.error = err.message;
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 </style>

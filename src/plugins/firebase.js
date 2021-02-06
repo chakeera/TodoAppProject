@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import store from '@/store/store';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -12,3 +13,7 @@ const firebaseConfig = {
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+firebase.auth().onAuthStateChanged((user) => {
+  store.dispatch('fetchUser', user);
+});
