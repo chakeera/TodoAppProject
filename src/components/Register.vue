@@ -18,6 +18,9 @@
                     v-model="fullname"
                     type="text"
                     required
+                    @input="$v.fullname.$touch()"
+                    @blur="$v.fullname.$touch()"
+                    :error-messages="fullnameErrors"
                   >
                   </v-text-field>
                      <v-text-field
@@ -27,6 +30,9 @@
                     v-model="email"
                     type="email"
                     required
+                    @input="$v.email.$touch()"
+                    @blur="$v.email.$touch()"
+                    :error-messages="emailErrors"
                   >
                   </v-text-field>
                   <v-text-field
@@ -36,6 +42,20 @@
                     v-model="password"
                     type="password"
                     required
+                    @input="$v.password.$touch()"
+                    @blur="$v.password.$touch()"
+                    :error-messages="passwordErrors"
+                  ></v-text-field>
+                  <v-text-field
+                    name="repeatedPassword"
+                    label="Password"
+                    id="repeatedPassword"
+                    v-model="repeatedPassword"
+                    type="password"
+                    required
+                    @input="$v.repeatedPassword.$touch()"
+                    @blur="$v.repeatedPassword.$touch()"
+                    :error-messages="repeatedPasswordErrors"
                   ></v-text-field>
 
                   <div class="text-center">
@@ -46,6 +66,24 @@
                       Register
                       <!-- <span slot="loader" class="custom-loader"> </span> -->
                     </v-btn>
+                    <br>
+                    <br>
+                    <v-alert
+                      v-if="RegisterSuccess"
+                      dense
+                      outlined
+                      text
+                      type="success"
+                    >{{RegisterSuccess}}
+                    </v-alert>
+                    <v-alert
+                    v-if="RegisterError"
+                      dense
+                      outlined
+                      text
+                      type="error"
+                    >{{RegisterError}}
+                    </v-alert>
                     </div>
                 </v-flex>
                     <v-flex xs12 class="py-3">
@@ -70,6 +108,10 @@
 
 <script>
 import firebase from 'firebase';
+import {
+  required, email, minLength, sameAs,
+} from 'vuelidate/lib/validators';
+import { validationMixin } from 'vuelidate';
 
 export default {
   name: 'Register',
@@ -78,11 +120,58 @@ export default {
       fullname: '',
       email: '',
       password: '',
-      error: null,
+      repeatedPassword: '',
+      RegisterSuccess: null,
+      RegisterError: null,
     };
+  },
+  mixins: [validationMixin],
+  validations: {
+    fullname: { required },
+    email: { required, email },
+    password: { required, minLength: minLength(6) },
+    repeatedPassword: { required, sameAsPassword: sameAs('password') },
+
+  },
+  computed: {
+    fullnameErrors() {
+      const errors = [];
+      if (!this.$v.fullname.$dirty) return errors;
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.fullname.required && errors.push('Full name is required');
+      return errors;
+    },
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.email.email && errors.push('Must be valid e-mail');
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.email.required && errors.push('E-mail is required');
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.password.required && errors.push('Password is required');
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.password.minLength && errors.push('Password must have atleast 6 character');
+      return errors;
+    },
+    repeatedPasswordErrors() {
+      const errors = [];
+      if (!this.$v.repeatedPassword.$dirty) return errors;
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.repeatedPassword.required && errors.push('Confirm your password');
+      // eslint-disable-next-line no-unused-expressions
+      !this.$v.repeatedPassword.sameAsPassword && errors.push('Password does not match');
+      return errors;
+    },
   },
   methods: {
     submitRegister() {
+      this.$v.$touch();
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -91,10 +180,14 @@ export default {
             .updateProfile({
               displayName: this.fullname,
             })
-            .then(() => {});
+            .then(() => {
+              this.RegisterSuccess = 'Register Successful! Proceed to Login';
+              this.RegisterError = null;
+            });
         })
         .catch((err) => {
-          this.error = err.message;
+          console.log(err.message);
+          this.RegisterError = 'Invalid Format or This email has already been registered';
         });
     },
   },
