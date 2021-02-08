@@ -91,7 +91,7 @@
                     to="/login"
                       outlined
                     >
-                      Already have an account? Login here
+                      {{message}}
                     </v-btn>
                   </div>
                 </v-flex>
@@ -121,6 +121,7 @@ export default {
       repeatedPassword: '',
       RegisterSuccess: null,
       RegisterError: null,
+      message: 'Already have an account? Login',
     };
   },
   mixins: [validationMixin],
@@ -179,8 +180,9 @@ export default {
               displayName: this.fullname,
             })
             .then(() => {
-              this.RegisterSuccess = 'Register Successful! Proceed to Login';
+              this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
               this.RegisterError = null;
+              this.message = 'Go to home page';
             });
         })
         .catch((err) => {
