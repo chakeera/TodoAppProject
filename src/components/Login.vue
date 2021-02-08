@@ -66,6 +66,13 @@
                     >
                       Dont have an account? Sign up here
                     </v-btn>
+                    <br>
+                    <br>
+                    <p class="text-center">or Login with Google</p>
+                    <v-btn @click="googleLogin" outlined>
+                      <img height="30" width='30' alt="Google Logo" src="../assets/google-logo.png">
+                        Sign in with Google
+                      </v-btn>
                   </div>
                 </v-flex>
               </v-form>
@@ -129,8 +136,18 @@ export default {
           this.loginError = 'Invalid Email or Password';
         });
     },
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      // eslint-disable-next-line no-unused-vars
+      firebase.auth().signInWithPopup(provider).then((result) => {
+        this.$router.replace('home');
+      }).catch((err) => {
+        alert(`Oops. ${err.message}`);
+      });
+    },
   },
 };
+
 </script>
 <style>
 </style>
