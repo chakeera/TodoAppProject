@@ -116,7 +116,6 @@ export default {
       return errors;
     },
   },
-
   methods: {
     login() {
       this.$v.$touch();
