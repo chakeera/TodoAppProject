@@ -37,16 +37,6 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   const requiresLogin = to.matched.some((x) => x.meta.requiresLogin);
-//   // eslint-disable-next-line prefer-destructuring
-//   const userStatus = firebase.auth.user;
-//   if (requiresLogin && !userStatus) next({ path: '/login' });
-//   else if (!requiresLogin && userStatus) next('/todos');
-//   else if (!requiresLogin && !userStatus) next();
-//   else next();
-// });
-
 router.beforeEach(async (to, from, next) => {
   const requiresLogin = to.matched.some((record) => record.meta.requiresLogin);
   if (requiresLogin && !await firebase.getCurrentUser()) {

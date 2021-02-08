@@ -64,7 +64,6 @@
                       type="submit"
                     >
                       Register
-                      <!-- <span slot="loader" class="custom-loader"> </span> -->
                     </v-btn>
                     <br>
                     <br>
@@ -93,7 +92,6 @@
                       outlined
                     >
                       Already have an account? Login here
-                      <!-- <span slot="loader" class="custom-loader"> </span> -->
                     </v-btn>
                   </div>
                 </v-flex>

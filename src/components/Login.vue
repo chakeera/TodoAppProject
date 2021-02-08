@@ -45,7 +45,6 @@
                       type="submit"
                     >
                       Log in
-                      <!-- <span slot="loader" class="custom-loader"> </span> -->
                     </v-btn>
                     <br>
                     <br>
@@ -66,7 +65,6 @@
                       outlined
                     >
                       Dont have an account? Sign up here
-                      <!-- <span slot="loader" class="custom-loader"> </span> -->
                     </v-btn>
                   </div>
                 </v-flex>
