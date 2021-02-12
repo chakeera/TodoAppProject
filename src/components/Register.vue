@@ -171,24 +171,32 @@ export default {
   methods: {
     submitRegister() {
       this.$v.$touch();
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then((data) => {
-          data.user
-            .updateProfile({
-              displayName: this.fullname,
-            })
-            .then(() => {
-              this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
-              this.RegisterError = null;
-              this.message = 'Go to home page';
-            });
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.RegisterError = 'Invalid Format or This email has already been registered';
-        });
+      if (this.password === this.repeatedPassword) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then((data) => {
+            data.user
+              .updateProfile({
+                displayName: this.fullname,
+              })
+              .then(() => {
+                this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
+                this.RegisterError = null;
+                this.message = 'Go to Login';
+                this.$store.dispatch('userRegister', {
+                  data,
+
+                });
+              });
+          })
+          .catch((err) => {
+            console.log(err.message);
+            this.RegisterError = err.message;
+          });
+      } else {
+        this.RegisterError = 'Password does not match';
+      }
     },
   },
 };

@@ -129,18 +129,24 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
+          this.$store.dispatch('userLogin', data.user);
+          this.$store.dispatch('userRegister', { data });
           this.$router.replace({ name: 'Todos' });
         })
         .catch((err) => {
           console.log(err.message);
-          this.loginError = 'Invalid Email or Password';
+          this.loginError = err.message;
         });
     },
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
       // eslint-disable-next-line no-unused-vars
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        this.$router.replace('home');
+      firebase.auth().signInWithPopup(provider).then((data) => {
+        this.$store.dispatch('userLogin', data.user);
+        this.$store.dispatch('userRegister', {
+          data,
+        });
+        this.$router.replace({ name: 'Todos' });
       }).catch((err) => {
         alert(`Oops. ${err.message}`);
       });

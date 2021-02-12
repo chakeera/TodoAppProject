@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Login from '@/components/Login.vue';
 import Register from '@/components/Register.vue';
 import Todo from '@/components/Todo.vue';
-import firebase from '@/plugins/firebase';
+// import firebase from '@/plugins/firebase';
 
 Vue.use(VueRouter);
 
@@ -37,16 +37,17 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  const requiresLogin = to.matched.some((record) => record.meta.requiresLogin);
-  if (requiresLogin && !await firebase.getCurrentUser()) {
-    next('Login');
-  } else if (!requiresLogin && await firebase.getCurrentUser()) {
-    next('Todos');
-  } else {
-    next();
-  }
-});
+// router.beforeEach(async (to, from, next) => {
+//   const requiresLogin = to.matched.some((record) => record.meta.requiresLogin);
+//   const user = firebase.auth().currentUser;
+//   if (!requiresLogin && !user) {
+//     next('/login');
+//   } else if (!requiresLogin && await firebase.auth.currentUser()) {
+//     next('Todos');
+//   } else {
+//     next();
+//   }
+// });
 
 Vue.$router = router;
 

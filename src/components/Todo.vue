@@ -22,7 +22,9 @@ export default {
       firebase
         .auth()
         .signOut()
-        .then(() => {
+        .then((data) => {
+          this.$store.dispatch('userLogout', false);
+          this.$store.dispatch('setUser', data);
           this.$router.replace({
             name: 'Login',
           });
