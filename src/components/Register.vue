@@ -7,7 +7,7 @@
         <v-flex xs12 sm6 justify-center>
           <v-card class="login-card">
             <!-- Login/Signin -->
-            <v-layout row align-center justify-center>
+            <v-layout align-center justify-center>
               <v-form @submit.prevent="submitRegister">
                 <v-flex xs12 class="py-3">
                   <h1 class="text-center">Register</h1>
@@ -184,10 +184,7 @@ export default {
                 this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
                 this.RegisterError = null;
                 this.message = 'Go to Login';
-                this.$store.dispatch('userRegister', {
-                  data,
-
-                });
+                this.$store.dispatch('userRegister', data);
               });
           })
           .catch((err) => {

@@ -7,9 +7,9 @@
         <v-flex xs12 sm6 justify-center>
           <v-card class="login-card">
             <!-- Login/Signin -->
-            <v-layout row align-center justify-center>
+            <v-layout align-center justify-center>
               <v-form @submit.prevent="login">
-                <v-flex xs12>
+                <v-flex xs12 justify-center>
                   <h1 class="text-center">Login</h1>
                   <v-text-field
                     name="email"
@@ -130,7 +130,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
           this.$store.dispatch('userLogin', data.user);
-          this.$store.dispatch('userRegister', { data });
+          this.$store.dispatch('userRegister', data);
           this.$router.replace({ name: 'Todos' });
         })
         .catch((err) => {
@@ -143,9 +143,8 @@ export default {
       // eslint-disable-next-line no-unused-vars
       firebase.auth().signInWithPopup(provider).then((data) => {
         this.$store.dispatch('userLogin', data.user);
-        this.$store.dispatch('userRegister', {
-          data,
-        });
+        this.$store.dispatch('userRegister',
+          data);
         this.$router.replace({ name: 'Todos' });
       }).catch((err) => {
         alert(`Oops. ${err.message}`);

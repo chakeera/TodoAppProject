@@ -14,28 +14,32 @@ export default new Vuex.Store({
     user(state) {
       return state.user;
     },
+    loggedIn(state) {
+      return state.user.loggedIn;
+    },
   },
   mutations: {
-    setLogin(state, value) {
-      state.user.loggedIn = value;
+    setLogin(state, data) {
+      state.user.loggedIn = data;
     },
     setUser(state, data) {
       state.user.data = data;
     },
-    setLogout(state, data) {
-      state.user.loggedIn = data;
-    },
   },
   actions: {
     userRegister({ commit }, payload) {
-      commit('setUser', { payload });
+      if (payload) {
+        commit('setUser', payload);
+      } else {
+        commit('setUser', null);
+      }
     },
     userLogin({ commit }, payload) {
       commit('setLogin', payload !== null);
     },
     userLogout({ commit }, payload) {
-      commit('setLogout', payload);
-      commit('setUser', null);
+      commit('setLogin', payload !== null);
+      commit('setUser', payload);
     },
     // fetchUser({ commit }, user) {
     //   commit('SET_LOGGED_IN', user !== null);

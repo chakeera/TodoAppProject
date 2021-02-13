@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import store from '@/store/store';
+// import store from '@/store/store';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -12,11 +12,7 @@ const firebaseConfig = {
 };
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-
-firebase.auth().onAuthStateChanged((user) => {
-  store.dispatch('userRegister', user);
-});
+// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 // firebase.getCurrentUser = () => new Promise((resolve, reject) => {
 //   const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
