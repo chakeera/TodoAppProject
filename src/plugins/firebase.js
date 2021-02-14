@@ -5,6 +5,7 @@ import 'firebase/auth';
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+  databaseURL: process.env.VUE_APP_DATABASE_URL,
   projectId: process.env.VUE_APP_PROJECT_ID,
   storageBucket: process.env.VUE_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
@@ -14,8 +15,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 firebase.auth().onAuthStateChanged((user) => {
-  store.dispatch('userRegister', user);
-  store.dispatch('userLogin', user);
+  store.dispatch('auth/userRegister', user);
+  store.dispatch('auth/serLogin', user);
 });
 
 firebase.getCurrentUser = () => new Promise((resolve, reject) => {

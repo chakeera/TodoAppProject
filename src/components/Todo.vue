@@ -1,72 +1,46 @@
 <template>
- <div id="todo">
-     <v-card
-    class="mx-auto"
-    max-width="344"
-  >
-
-    <v-card-title>
-      Top western road trips
+  <div id="todo">
+    <v-container align-center justify-center>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm6 justify-center align-center>
+          <v-text-field label="What needs to be done?" >
+            <v-icon slot="append" color="blue" > mdi-plus </v-icon>
+          </v-text-field>
+         <v-card class="mx-auto">
+            <v-card-title>
+     <v-checkbox color="success"></v-checkbox>
+     abc
+    <v-spacer></v-spacer>
+     <v-btn icon>
+    <v-icon color="orange">mdi-plus</v-icon>
+    </v-btn>
+    <v-btn icon>
+    <v-icon color="red">mdi-delete</v-icon>
+    </v-btn>
     </v-card-title>
+          </v-card>
+          <v-divider></v-divider>
+          <br>
+          <div class="text-center">
+          <v-btn class='absolute' @click.prevent="signOut"> Sign Out </v-btn>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
-    <v-card-actions>
-      <v-btn
-        color="orange lighten-2"
-        text
-      >
-        Subtasks
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        @click="show = !show"
-      >
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-      </v-btn>
-    </v-card-actions>
-
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-
-        <v-card-text>
-         I'm a thing. But, like most politicians, he promised more than he could deliver.
-         You won't have time for sleeping, soldier, not with all the bed making you'll be doing.
-         Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk!
-          You're going to do his laundry? I've got to find a way to escape.
-        </v-card-text>
-      </div>
-    </v-expand-transition>
-  </v-card>
-    <v-btn @click.prevent="signOut"> Sign Out </v-btn>
- </div>
+  </div>
 </template>
 
 <script>
-
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 export default {
   name: 'Todos',
-  computed: {
-  },
-  methods: {
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$store.dispatch('userLogout', null);
-          this.$router.replace({
-            name: 'Login',
-          });
-        });
-    },
+  data() {
+    return {
+    };
   },
 };
 </script>
 <style scoped>
-
 </style>

@@ -183,7 +183,7 @@ export default {
               .then(() => {
                 this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
                 this.RegisterError = null;
-                this.message = 'Go to Login';
+                this.message = 'Go to TODO ';
                 this.$store.dispatch('userRegister', data);
               });
           })
