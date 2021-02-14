@@ -130,7 +130,6 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
           this.$store.dispatch('userLogin', data.user);
-          this.$store.dispatch('userRegister', data);
           this.$router.replace({ name: 'Todos' });
         })
         .catch((err) => {
@@ -143,8 +142,6 @@ export default {
       // eslint-disable-next-line no-unused-vars
       firebase.auth().signInWithPopup(provider).then((data) => {
         this.$store.dispatch('userLogin', data.user);
-        this.$store.dispatch('userRegister',
-          data);
         this.$router.replace({ name: 'Todos' });
       }).catch((err) => {
         alert(`Oops. ${err.message}`);

@@ -30,12 +30,14 @@ export default new Vuex.Store({
     userRegister({ commit }, payload) {
       if (payload) {
         commit('setUser', payload);
+        commit('setLogin', payload === null);
       } else {
         commit('setUser', null);
       }
     },
     userLogin({ commit }, payload) {
       commit('setLogin', payload !== null);
+      commit('setUser', payload);
     },
     userLogout({ commit }, payload) {
       commit('setLogin', payload !== null);
