@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 firebase.auth().onAuthStateChanged((user) => {
   store.dispatch('auth/userRegister', user);
-  store.dispatch('auth/serLogin', user);
+  store.dispatch('auth/userLogin', user);
 });
 
 firebase.getCurrentUser = () => new Promise((resolve, reject) => {

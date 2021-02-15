@@ -129,7 +129,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
-          this.$store.dispatch('userLogin', data.user);
+          this.$store.dispatch('auth/userLogin', data.user);
           this.$router.replace({ name: 'Todos' });
         })
         .catch((err) => {
@@ -141,7 +141,7 @@ export default {
       const provider = new firebase.auth.GoogleAuthProvider();
       // eslint-disable-next-line no-unused-vars
       firebase.auth().signInWithPopup(provider).then((data) => {
-        this.$store.dispatch('userLogin', data.user);
+        this.$store.dispatch('auth/userLogin', data.user);
         this.$router.replace({ name: 'Todos' });
       }).catch((err) => {
         alert(`Oops. ${err.message}`);
