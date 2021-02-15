@@ -184,7 +184,7 @@ export default {
                 this.RegisterSuccess = 'Register Successful! Proceed to Todo list';
                 this.RegisterError = null;
                 this.message = 'Go to TODO ';
-                this.$store.dispatch('userRegister', data);
+                this.$store.dispatch('auth/userRegister', data);
               });
           })
           .catch((err) => {

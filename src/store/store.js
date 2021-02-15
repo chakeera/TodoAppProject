@@ -9,7 +9,6 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
     auth: { ...Auth, namespaced: true },
-    // todos: { ...Todo, namespaced: true },
   },
 });
 
