@@ -14,9 +14,7 @@
      {{ items.text }}
     <v-spacer></v-spacer>
     <v-icon color="orange">mdi-plus</v-icon>
-    <v-btn>
-    <v-icon color="red">mdi-delete</v-icon>
-    </v-btn>
+    <v-icon @click='deleteTodo(key)' color="red">mdi-delete</v-icon>
     </v-card-title>
           </v-card>
           <v-divider></v-divider>
@@ -63,6 +61,12 @@ export default {
         isDone: false,
       });
       this.inputTodo = '';
+    },
+    deleteTodo(taskid) {
+      firebase
+        .database()
+        .ref(`users/${this.$store.state.auth.user.data.uid}/${taskid}`)
+        .set({});
     },
     signOut() {
       firebase

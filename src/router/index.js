@@ -15,7 +15,6 @@ const routes = [
     component: Login,
     meta: {
       requiresLogin: false,
-      loggedIn: false,
     },
   },
   {
@@ -23,7 +22,6 @@ const routes = [
     component: Register,
     meta: {
       requiresLogin: false,
-      loggedIn: false,
     },
   },
   {
@@ -32,7 +30,6 @@ const routes = [
     component: Todo,
     meta: {
       requiresLogin: true,
-      loggedIn: true,
     },
   },
 ];
